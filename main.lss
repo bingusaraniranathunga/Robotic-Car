@@ -1,0 +1,1384 @@
+
+main.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000010  00800100  0000071a  000007ae  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000071a  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          0000001f  00800110  00800110  000007be  2**0
+                  ALLOC
+  3 .debug_aranges 00000020  00000000  00000000  000007be  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 00000100  00000000  00000000  000007de  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000b5b  00000000  00000000  000008de  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000243  00000000  00000000  00001439  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000008c5  00000000  00000000  0000167c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000f0  00000000  00000000  00001f44  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000014f  00000000  00000000  00002034  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000031c  00000000  00000000  00002183  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000048  00000000  00000000  0000249f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 98 01 	jmp	0x330	; 0x330 <__vector_1>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	ea e1       	ldi	r30, 0x1A	; 26
+  7c:	f7 e0       	ldi	r31, 0x07	; 7
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <.do_copy_data_start>
+
+00000080 <.do_copy_data_loop>:
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+
+00000084 <.do_copy_data_start>:
+  84:	a0 31       	cpi	r26, 0x10	; 16
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <.do_copy_data_loop>
+
+0000008a <__do_clear_bss>:
+  8a:	11 e0       	ldi	r17, 0x01	; 1
+  8c:	a0 e1       	ldi	r26, 0x10	; 16
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	af 32       	cpi	r26, 0x2F	; 47
+  96:	b1 07       	cpc	r27, r17
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 2e 03 	call	0x65c	; 0x65c <main>
+  9e:	0c 94 8b 03 	jmp	0x716	; 0x716 <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <USART_INIT>:
+static volatile int i = 0;
+	
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d);	
+
+void USART_INIT(void){
+	UCSR0B |= (1<<TXEN0)|(1<<RXEN0); //Transmission & Reception Enable (TXEN0=1, RXEN0=1)
+  a6:	e1 ec       	ldi	r30, 0xC1	; 193
+  a8:	f0 e0       	ldi	r31, 0x00	; 0
+  aa:	80 81       	ld	r24, Z
+  ac:	88 61       	ori	r24, 0x18	; 24
+  ae:	80 83       	st	Z, r24
+	UCSR0C |=(1<<UCSZ01)|(1<<UCSZ00); 
+  b0:	e2 ec       	ldi	r30, 0xC2	; 194
+  b2:	f0 e0       	ldi	r31, 0x00	; 0
+  b4:	80 81       	ld	r24, Z
+  b6:	86 60       	ori	r24, 0x06	; 6
+  b8:	80 83       	st	Z, r24
+	UBRR0L = 103; //Set baudrate as 9600
+  ba:	87 e6       	ldi	r24, 0x67	; 103
+  bc:	80 93 c4 00 	sts	0x00C4, r24
+}
+  c0:	08 95       	ret
+
+000000c2 <USART_SEND>:
+
+void USART_SEND(unsigned char c){
+  c2:	98 2f       	mov	r25, r24
+	while(!(UCSR0A&(1<<UDRE0))); //Wait until UDR empty
+  c4:	80 91 c0 00 	lds	r24, 0x00C0
+  c8:	85 ff       	sbrs	r24, 5
+  ca:	fc cf       	rjmp	.-8      	; 0xc4 <USART_SEND+0x2>
+	UDR0 = c; //Load character to UDR0 register
+  cc:	90 93 c6 00 	sts	0x00C6, r25
+	while(!(UCSR0A&(1<<TXC0))); //Wait until sent
+  d0:	80 91 c0 00 	lds	r24, 0x00C0
+  d4:	86 ff       	sbrs	r24, 6
+  d6:	fc cf       	rjmp	.-8      	; 0xd0 <USART_SEND+0xe>
+}
+  d8:	08 95       	ret
+
+000000da <STRING_SEND>:
+
+void STRING_SEND(char *s){
+  da:	cf 93       	push	r28
+  dc:	df 93       	push	r29
+  de:	ec 01       	movw	r28, r24
+  e0:	02 c0       	rjmp	.+4      	; 0xe6 <STRING_SEND+0xc>
+	//send string using for loop
+	for(int i=0;s[i]!=0;i++){
+		USART_SEND(s[i]);
+  e2:	0e 94 61 00 	call	0xc2	; 0xc2 <USART_SEND>
+	while(!(UCSR0A&(1<<TXC0))); //Wait until sent
+}
+
+void STRING_SEND(char *s){
+	//send string using for loop
+	for(int i=0;s[i]!=0;i++){
+  e6:	89 91       	ld	r24, Y+
+  e8:	88 23       	and	r24, r24
+  ea:	d9 f7       	brne	.-10     	; 0xe2 <STRING_SEND+0x8>
+		USART_SEND(s[i]);
+	}
+}
+  ec:	df 91       	pop	r29
+  ee:	cf 91       	pop	r28
+  f0:	08 95       	ret
+
+000000f2 <ADC_init>:
+
+void ADC_init(void){										
+
+    ADMUX = (1<<REFS0)|(1<<MUX1);					// use AVCC and and A2 as input to adc 
+  f2:	82 e4       	ldi	r24, 0x42	; 66
+  f4:	80 93 7c 00 	sts	0x007C, r24
+	ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADPS0); 	// set presclaer 128
+  f8:	83 e8       	ldi	r24, 0x83	; 131
+  fa:	80 93 7a 00 	sts	0x007A, r24
+}
+  fe:	08 95       	ret
+
+00000100 <ADC_read>:
+
+int ADC_read(void){								
+
+	ADCSRA |= (1<<ADSC);							// statrt conversion
+ 100:	80 91 7a 00 	lds	r24, 0x007A
+ 104:	80 64       	ori	r24, 0x40	; 64
+ 106:	80 93 7a 00 	sts	0x007A, r24
+	while(ADCSRA & (1<<ADSC));						// wait while convertion finishes
+ 10a:	80 91 7a 00 	lds	r24, 0x007A
+ 10e:	86 fd       	sbrc	r24, 6
+ 110:	fc cf       	rjmp	.-8      	; 0x10a <ADC_read+0xa>
+	return ADC;
+ 112:	20 91 78 00 	lds	r18, 0x0078
+ 116:	30 91 79 00 	lds	r19, 0x0079
+}
+ 11a:	c9 01       	movw	r24, r18
+ 11c:	08 95       	ret
+
+0000011e <create>:
+
+int create(int count) //Calculate average value using needed ADC value.
+{
+ 11e:	bc 01       	movw	r22, r24
+ 120:	40 e0       	ldi	r20, 0x00	; 0
+ 122:	50 e0       	ldi	r21, 0x00	; 0
+ 124:	20 e0       	ldi	r18, 0x00	; 0
+ 126:	30 e0       	ldi	r19, 0x00	; 0
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 128:	e0 e2       	ldi	r30, 0x20	; 32
+ 12a:	fe e4       	ldi	r31, 0x4E	; 78
+ 12c:	14 c0       	rjmp	.+40     	; 0x156 <create+0x38>
+	ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADPS0); 	// set presclaer 128
+}
+
+int ADC_read(void){								
+
+	ADCSRA |= (1<<ADSC);							// statrt conversion
+ 12e:	80 91 7a 00 	lds	r24, 0x007A
+ 132:	80 64       	ori	r24, 0x40	; 64
+ 134:	80 93 7a 00 	sts	0x007A, r24
+	while(ADCSRA & (1<<ADSC));						// wait while convertion finishes
+ 138:	80 91 7a 00 	lds	r24, 0x007A
+ 13c:	86 fd       	sbrc	r24, 6
+ 13e:	fc cf       	rjmp	.-8      	; 0x138 <create+0x1a>
+	return ADC;
+ 140:	80 91 78 00 	lds	r24, 0x0078
+ 144:	90 91 79 00 	lds	r25, 0x0079
+	int w=0,t=0;
+	int avg;
+	
+	for(int i=0;i<count;i++){
+		w=ADC_read();
+		t=t+w;
+ 148:	48 0f       	add	r20, r24
+ 14a:	59 1f       	adc	r21, r25
+ 14c:	cf 01       	movw	r24, r30
+ 14e:	01 97       	sbiw	r24, 0x01	; 1
+ 150:	f1 f7       	brne	.-4      	; 0x14e <create+0x30>
+int create(int count) //Calculate average value using needed ADC value.
+{
+	int w=0,t=0;
+	int avg;
+	
+	for(int i=0;i<count;i++){
+ 152:	2f 5f       	subi	r18, 0xFF	; 255
+ 154:	3f 4f       	sbci	r19, 0xFF	; 255
+ 156:	26 17       	cp	r18, r22
+ 158:	37 07       	cpc	r19, r23
+ 15a:	4c f3       	brlt	.-46     	; 0x12e <create+0x10>
+ 15c:	ca 01       	movw	r24, r20
+ 15e:	0e 94 33 03 	call	0x666	; 0x666 <__divmodhi4>
+ 162:	cb 01       	movw	r24, r22
+		t=t+w;
+		_delay_ms(5);
+	}
+	avg=t/count;
+	return avg;
+}
+ 164:	08 95       	ret
+
+00000166 <init>:
+static volatile int i = 0;
+	
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d);	
+
+void USART_INIT(void){
+	UCSR0B |= (1<<TXEN0)|(1<<RXEN0); //Transmission & Reception Enable (TXEN0=1, RXEN0=1)
+ 166:	80 91 c1 00 	lds	r24, 0x00C1
+ 16a:	88 61       	ori	r24, 0x18	; 24
+ 16c:	80 93 c1 00 	sts	0x00C1, r24
+	UCSR0C |=(1<<UCSZ01)|(1<<UCSZ00); 
+ 170:	80 91 c2 00 	lds	r24, 0x00C2
+ 174:	86 60       	ori	r24, 0x06	; 6
+ 176:	80 93 c2 00 	sts	0x00C2, r24
+	UBRR0L = 103; //Set baudrate as 9600
+ 17a:	87 e6       	ldi	r24, 0x67	; 103
+ 17c:	80 93 c4 00 	sts	0x00C4, r24
+	}
+}
+
+void ADC_init(void){										
+
+    ADMUX = (1<<REFS0)|(1<<MUX1);					// use AVCC and and A2 as input to adc 
+ 180:	82 e4       	ldi	r24, 0x42	; 66
+ 182:	80 93 7c 00 	sts	0x007C, r24
+	ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADPS0); 	// set presclaer 128
+ 186:	83 e8       	ldi	r24, 0x83	; 131
+ 188:	80 93 7a 00 	sts	0x007A, r24
+
+
+void init(void){
+	USART_INIT();
+	ADC_init();
+	DDRD|=(1<<4)|(1<<7)|(1<<5)|(1<<6);
+ 18c:	8a b1       	in	r24, 0x0a	; 10
+ 18e:	80 6f       	ori	r24, 0xF0	; 240
+ 190:	8a b9       	out	0x0a, r24	; 10
+	DDRB|=(1<<0)|(1<<1)|(1<<2)|(1<<3)|(1<<4)|(1<<5);
+ 192:	84 b1       	in	r24, 0x04	; 4
+ 194:	8f 63       	ori	r24, 0x3F	; 63
+ 196:	84 b9       	out	0x04, r24	; 4
+	DDRD|=(0<<2)|(1<<3);
+ 198:	53 9a       	sbi	0x0a, 3	; 10
+ 19a:	84 ef       	ldi	r24, 0xF4	; 244
+ 19c:	91 e0       	ldi	r25, 0x01	; 1
+ 19e:	20 e9       	ldi	r18, 0x90	; 144
+ 1a0:	31 e0       	ldi	r19, 0x01	; 1
+ 1a2:	f9 01       	movw	r30, r18
+ 1a4:	31 97       	sbiw	r30, 0x01	; 1
+ 1a6:	f1 f7       	brne	.-4      	; 0x1a4 <init+0x3e>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 1a8:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 1aa:	d9 f7       	brne	.-10     	; 0x1a2 <init+0x3c>
+	_delay_ms(50);
+	EIMSK |= 1<<INT0;
+ 1ac:	e8 9a       	sbi	0x1d, 0	; 29
+	EICRA |= 1<<ISC00;
+ 1ae:	80 91 69 00 	lds	r24, 0x0069
+ 1b2:	81 60       	ori	r24, 0x01	; 1
+ 1b4:	80 93 69 00 	sts	0x0069, r24
+
+	sei();
+ 1b8:	78 94       	sei
+}
+ 1ba:	08 95       	ret
+
+000001bc <mval>:
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 1bc:	87 bd       	out	0x27, r24	; 39
+	OCR1A=b;
+ 1be:	70 e0       	ldi	r23, 0x00	; 0
+ 1c0:	70 93 89 00 	sts	0x0089, r23
+ 1c4:	60 93 88 00 	sts	0x0088, r22
+	OCR0B=c;
+ 1c8:	48 bd       	out	0x28, r20	; 40
+	OCR1B=d;
+ 1ca:	30 e0       	ldi	r19, 0x00	; 0
+ 1cc:	30 93 8b 00 	sts	0x008B, r19
+ 1d0:	20 93 8a 00 	sts	0x008A, r18
+
+}
+ 1d4:	08 95       	ret
+
+000001d6 <timer>:
+
+void timer(void){
+	
+	TCCR0A |= (1 << WGM01) | (1 << WGM00)| (1 << COM0A1) |  (1 << COM0B1);//set timer0,enable fast PWM 
+ 1d6:	84 b5       	in	r24, 0x24	; 36
+ 1d8:	83 6a       	ori	r24, 0xA3	; 163
+ 1da:	84 bd       	out	0x24, r24	; 36
+    TCCR0B |= (1 << CS00);//No prescaling
+ 1dc:	85 b5       	in	r24, 0x25	; 37
+ 1de:	81 60       	ori	r24, 0x01	; 1
+ 1e0:	85 bd       	out	0x25, r24	; 37
+    
+	
+	TCCR1A  |=(1 << WGM12) | (1 << WGM10)| (1 << COM1A1) |  (1 << COM1B1);//set timer1,enable fast PWM
+ 1e2:	e0 e8       	ldi	r30, 0x80	; 128
+ 1e4:	f0 e0       	ldi	r31, 0x00	; 0
+ 1e6:	80 81       	ld	r24, Z
+ 1e8:	89 6a       	ori	r24, 0xA9	; 169
+ 1ea:	80 83       	st	Z, r24
+    TCCR1B |= (1 << CS10);//No prescaling
+ 1ec:	e1 e8       	ldi	r30, 0x81	; 129
+ 1ee:	f0 e0       	ldi	r31, 0x00	; 0
+ 1f0:	80 81       	ld	r24, Z
+ 1f2:	81 60       	ori	r24, 0x01	; 1
+ 1f4:	80 83       	st	Z, r24
+  
+}
+ 1f6:	08 95       	ret
+
+000001f8 <c_detection>:
+	
+}
+
+void c_detection(void){
+	
+	DDRD|=(1<<4)|(1<<7);
+ 1f8:	8a b1       	in	r24, 0x0a	; 10
+ 1fa:	80 69       	ori	r24, 0x90	; 144
+ 1fc:	8a b9       	out	0x0a, r24	; 10
+	DDRB|=(1<<0);
+ 1fe:	20 9a       	sbi	0x04, 0	; 4
+	
+	PORTB  |= (1<<PB0);
+ 200:	28 9a       	sbi	0x05, 0	; 5
+ 202:	80 e9       	ldi	r24, 0x90	; 144
+ 204:	91 e0       	ldi	r25, 0x01	; 1
+ 206:	20 e9       	ldi	r18, 0x90	; 144
+ 208:	31 e0       	ldi	r19, 0x01	; 1
+ 20a:	f9 01       	movw	r30, r18
+ 20c:	31 97       	sbiw	r30, 0x01	; 1
+ 20e:	f1 f7       	brne	.-4      	; 0x20c <c_detection+0x14>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 210:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 212:	d9 f7       	brne	.-10     	; 0x20a <c_detection+0x12>
+	_delay_ms(40);
+	r=create(20); // red
+ 214:	84 e1       	ldi	r24, 0x14	; 20
+ 216:	90 e0       	ldi	r25, 0x00	; 0
+ 218:	0e 94 8f 00 	call	0x11e	; 0x11e <create>
+ 21c:	90 93 1e 01 	sts	0x011E, r25
+ 220:	80 93 1d 01 	sts	0x011D, r24
+	PORTB &= ~(1<<PB0);
+ 224:	28 98       	cbi	0x05, 0	; 5
+ 226:	80 e6       	ldi	r24, 0x60	; 96
+ 228:	9a ee       	ldi	r25, 0xEA	; 234
+ 22a:	01 97       	sbiw	r24, 0x01	; 1
+ 22c:	f1 f7       	brne	.-4      	; 0x22a <c_detection+0x32>
+	_delay_ms(15);
+		
+	PORTD  |= (1<<PD7);
+ 22e:	5f 9a       	sbi	0x0b, 7	; 11
+ 230:	80 e9       	ldi	r24, 0x90	; 144
+ 232:	91 e0       	ldi	r25, 0x01	; 1
+ 234:	20 e9       	ldi	r18, 0x90	; 144
+ 236:	31 e0       	ldi	r19, 0x01	; 1
+ 238:	f9 01       	movw	r30, r18
+ 23a:	31 97       	sbiw	r30, 0x01	; 1
+ 23c:	f1 f7       	brne	.-4      	; 0x23a <c_detection+0x42>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 23e:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 240:	d9 f7       	brne	.-10     	; 0x238 <c_detection+0x40>
+	_delay_ms(40);
+	g = create(20); //green
+ 242:	84 e1       	ldi	r24, 0x14	; 20
+ 244:	90 e0       	ldi	r25, 0x00	; 0
+ 246:	0e 94 8f 00 	call	0x11e	; 0x11e <create>
+ 24a:	90 93 19 01 	sts	0x0119, r25
+ 24e:	80 93 18 01 	sts	0x0118, r24
+	PORTD &= ~(1<<PD7);
+ 252:	5f 98       	cbi	0x0b, 7	; 11
+ 254:	80 e6       	ldi	r24, 0x60	; 96
+ 256:	9a ee       	ldi	r25, 0xEA	; 234
+ 258:	01 97       	sbiw	r24, 0x01	; 1
+ 25a:	f1 f7       	brne	.-4      	; 0x258 <c_detection+0x60>
+	_delay_ms(15);
+		
+	PORTD  |= (1<<PD4);
+ 25c:	5c 9a       	sbi	0x0b, 4	; 11
+ 25e:	84 ef       	ldi	r24, 0xF4	; 244
+ 260:	91 e0       	ldi	r25, 0x01	; 1
+ 262:	20 e9       	ldi	r18, 0x90	; 144
+ 264:	31 e0       	ldi	r19, 0x01	; 1
+ 266:	f9 01       	movw	r30, r18
+ 268:	31 97       	sbiw	r30, 0x01	; 1
+ 26a:	f1 f7       	brne	.-4      	; 0x268 <c_detection+0x70>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 26c:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 26e:	d9 f7       	brne	.-10     	; 0x266 <c_detection+0x6e>
+	_delay_ms(50);
+	b=create(40);  //blue
+ 270:	88 e2       	ldi	r24, 0x28	; 40
+ 272:	90 e0       	ldi	r25, 0x00	; 0
+ 274:	0e 94 8f 00 	call	0x11e	; 0x11e <create>
+ 278:	90 93 15 01 	sts	0x0115, r25
+ 27c:	80 93 14 01 	sts	0x0114, r24
+	PORTD &= ~(1<<PD4);
+ 280:	5c 98       	cbi	0x0b, 4	; 11
+ 282:	e0 e6       	ldi	r30, 0x60	; 96
+ 284:	fa ee       	ldi	r31, 0xEA	; 234
+ 286:	31 97       	sbiw	r30, 0x01	; 1
+ 288:	f1 f7       	brne	.-4      	; 0x286 <c_detection+0x8e>
+	_delay_ms(15);
+		
+	y=(b+g)-r;
+ 28a:	20 91 18 01 	lds	r18, 0x0118
+ 28e:	30 91 19 01 	lds	r19, 0x0119
+ 292:	40 91 1d 01 	lds	r20, 0x011D
+ 296:	50 91 1e 01 	lds	r21, 0x011E
+ 29a:	f9 01       	movw	r30, r18
+ 29c:	e4 1b       	sub	r30, r20
+ 29e:	f5 0b       	sbc	r31, r21
+ 2a0:	e8 0f       	add	r30, r24
+ 2a2:	f9 1f       	adc	r31, r25
+ 2a4:	f0 93 24 01 	sts	0x0124, r31
+ 2a8:	e0 93 23 01 	sts	0x0123, r30
+	z=((2*b)-(r+g));
+ 2ac:	66 27       	eor	r22, r22
+ 2ae:	77 27       	eor	r23, r23
+ 2b0:	62 1b       	sub	r22, r18
+ 2b2:	73 0b       	sbc	r23, r19
+ 2b4:	64 1b       	sub	r22, r20
+ 2b6:	75 0b       	sbc	r23, r21
+ 2b8:	88 0f       	add	r24, r24
+ 2ba:	99 1f       	adc	r25, r25
+ 2bc:	68 0f       	add	r22, r24
+ 2be:	79 1f       	adc	r23, r25
+ 2c0:	70 93 20 01 	sts	0x0120, r23
+ 2c4:	60 93 1f 01 	sts	0x011F, r22
+	
+	
+	/////////////////////////////color detection///////////////////////////
+	if(240<y && 180<z){
+ 2c8:	e1 3f       	cpi	r30, 0xF1	; 241
+ 2ca:	f1 05       	cpc	r31, r1
+ 2cc:	6c f0       	brlt	.+26     	; 0x2e8 <c_detection+0xf0>
+ 2ce:	65 3b       	cpi	r22, 0xB5	; 181
+ 2d0:	71 05       	cpc	r23, r1
+ 2d2:	54 f0       	brlt	.+20     	; 0x2e8 <c_detection+0xf0>
+		STRING_SEND("5");
+ 2d4:	80 e0       	ldi	r24, 0x00	; 0
+ 2d6:	91 e0       	ldi	r25, 0x01	; 1
+ 2d8:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+		STRING_SEND("\n");
+ 2dc:	82 e0       	ldi	r24, 0x02	; 2
+ 2de:	91 e0       	ldi	r25, 0x01	; 1
+ 2e0:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+		PORTB |=(1<<3)|(0<<4)|(0<<5);
+ 2e4:	2b 9a       	sbi	0x05, 3	; 5
+ 2e6:	1f c0       	rjmp	.+62     	; 0x326 <c_detection+0x12e>
+	}else if(200<y && 200<z){
+ 2e8:	e9 3c       	cpi	r30, 0xC9	; 201
+ 2ea:	f1 05       	cpc	r31, r1
+ 2ec:	6c f0       	brlt	.+26     	; 0x308 <c_detection+0x110>
+ 2ee:	69 3c       	cpi	r22, 0xC9	; 201
+ 2f0:	71 05       	cpc	r23, r1
+ 2f2:	54 f0       	brlt	.+20     	; 0x308 <c_detection+0x110>
+		STRING_SEND("7");
+ 2f4:	84 e0       	ldi	r24, 0x04	; 4
+ 2f6:	91 e0       	ldi	r25, 0x01	; 1
+ 2f8:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+		STRING_SEND("\n");
+ 2fc:	82 e0       	ldi	r24, 0x02	; 2
+ 2fe:	91 e0       	ldi	r25, 0x01	; 1
+ 300:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+		PORTB |=(0<<3)|(1<<4)|(0<<5);
+ 304:	2c 9a       	sbi	0x05, 4	; 5
+ 306:	0f c0       	rjmp	.+30     	; 0x326 <c_detection+0x12e>
+	}else if(180<y && 130<z){
+ 308:	e5 3b       	cpi	r30, 0xB5	; 181
+ 30a:	f1 05       	cpc	r31, r1
+ 30c:	64 f0       	brlt	.+24     	; 0x326 <c_detection+0x12e>
+ 30e:	63 38       	cpi	r22, 0x83	; 131
+ 310:	71 05       	cpc	r23, r1
+ 312:	4c f0       	brlt	.+18     	; 0x326 <c_detection+0x12e>
+		STRING_SEND("6");
+ 314:	86 e0       	ldi	r24, 0x06	; 6
+ 316:	91 e0       	ldi	r25, 0x01	; 1
+ 318:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+		STRING_SEND("\n");
+ 31c:	82 e0       	ldi	r24, 0x02	; 2
+ 31e:	91 e0       	ldi	r25, 0x01	; 1
+ 320:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+		PORTB |=(0<<3)|(0<<4)|(1<<5);
+ 324:	2d 9a       	sbi	0x05, 5	; 5
+	}
+	
+	STRING_SEND("\n");
+ 326:	82 e0       	ldi	r24, 0x02	; 2
+ 328:	91 e0       	ldi	r25, 0x01	; 1
+ 32a:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+}
+ 32e:	08 95       	ret
+
+00000330 <__vector_1>:
+	}else{
+		STRING_SEND("0\n");//no obstacle
+	}
+}
+ISR(INT0_vect)
+{
+ 330:	1f 92       	push	r1
+ 332:	0f 92       	push	r0
+ 334:	0f b6       	in	r0, 0x3f	; 63
+ 336:	0f 92       	push	r0
+ 338:	11 24       	eor	r1, r1
+ 33a:	8f 93       	push	r24
+ 33c:	9f 93       	push	r25
+  if(i == 0)
+ 33e:	80 91 10 01 	lds	r24, 0x0110
+ 342:	90 91 11 01 	lds	r25, 0x0111
+ 346:	89 2b       	or	r24, r25
+ 348:	61 f4       	brne	.+24     	; 0x362 <__vector_1+0x32>
+  {
+    TCCR2B |= 1<<CS20|1<<CS21|1<<CS22;
+ 34a:	80 91 b1 00 	lds	r24, 0x00B1
+ 34e:	87 60       	ori	r24, 0x07	; 7
+ 350:	80 93 b1 00 	sts	0x00B1, r24
+    i = 1;
+ 354:	81 e0       	ldi	r24, 0x01	; 1
+ 356:	90 e0       	ldi	r25, 0x00	; 0
+ 358:	90 93 11 01 	sts	0x0111, r25
+ 35c:	80 93 10 01 	sts	0x0110, r24
+ 360:	0f c0       	rjmp	.+30     	; 0x380 <__vector_1+0x50>
+  }
+  else
+  {
+    TCCR2B = 0;
+ 362:	10 92 b1 00 	sts	0x00B1, r1
+    p = TCNT2;
+ 366:	80 91 b2 00 	lds	r24, 0x00B2
+ 36a:	90 e0       	ldi	r25, 0x00	; 0
+ 36c:	90 93 13 01 	sts	0x0113, r25
+ 370:	80 93 12 01 	sts	0x0112, r24
+    TCNT2 = 0;
+ 374:	10 92 b2 00 	sts	0x00B2, r1
+    i = 0;
+ 378:	10 92 11 01 	sts	0x0111, r1
+ 37c:	10 92 10 01 	sts	0x0110, r1
+  }
+}
+ 380:	9f 91       	pop	r25
+ 382:	8f 91       	pop	r24
+ 384:	0f 90       	pop	r0
+ 386:	0f be       	out	0x3f, r0	; 63
+ 388:	0f 90       	pop	r0
+ 38a:	1f 90       	pop	r1
+ 38c:	18 95       	reti
+
+0000038e <o_detection>:
+	
+}
+
+///////////////////////////////obstacle detection/////////////////////////////
+void o_detection(void){
+	PORTD = 1<<PD3;
+ 38e:	88 e0       	ldi	r24, 0x08	; 8
+ 390:	8b b9       	out	0x0b, r24	; 11
+ 392:	8c ed       	ldi	r24, 0xDC	; 220
+ 394:	90 e0       	ldi	r25, 0x00	; 0
+ 396:	01 97       	sbiw	r24, 0x01	; 1
+ 398:	f1 f7       	brne	.-4      	; 0x396 <o_detection+0x8>
+    _delay_us(55);
+    PORTD = 0<<PD3;
+ 39a:	1b b8       	out	0x0b, r1	; 11
+    j = p;
+ 39c:	80 91 12 01 	lds	r24, 0x0112
+ 3a0:	90 91 13 01 	lds	r25, 0x0113
+ 3a4:	90 93 17 01 	sts	0x0117, r25
+ 3a8:	80 93 16 01 	sts	0x0116, r24
+	itoa(p,s,10);
+ 3ac:	80 91 12 01 	lds	r24, 0x0112
+ 3b0:	90 91 13 01 	lds	r25, 0x0113
+ 3b4:	65 e2       	ldi	r22, 0x25	; 37
+ 3b6:	71 e0       	ldi	r23, 0x01	; 1
+ 3b8:	4a e0       	ldi	r20, 0x0A	; 10
+ 3ba:	50 e0       	ldi	r21, 0x00	; 0
+ 3bc:	0e 94 5a 03 	call	0x6b4	; 0x6b4 <itoa>
+	STRING_SEND(s);
+ 3c0:	85 e2       	ldi	r24, 0x25	; 37
+ 3c2:	91 e0       	ldi	r25, 0x01	; 1
+ 3c4:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+	STRING_SEND("\t");
+ 3c8:	88 e0       	ldi	r24, 0x08	; 8
+ 3ca:	91 e0       	ldi	r25, 0x01	; 1
+ 3cc:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+	if(p<15){
+ 3d0:	80 91 12 01 	lds	r24, 0x0112
+ 3d4:	90 91 13 01 	lds	r25, 0x0113
+ 3d8:	0f 97       	sbiw	r24, 0x0f	; 15
+ 3da:	1c f4       	brge	.+6      	; 0x3e2 <o_detection+0x54>
+		STRING_SEND("1\n");//detect a obstacle
+ 3dc:	8a e0       	ldi	r24, 0x0A	; 10
+ 3de:	91 e0       	ldi	r25, 0x01	; 1
+ 3e0:	02 c0       	rjmp	.+4      	; 0x3e6 <o_detection+0x58>
+	}else{
+		STRING_SEND("0\n");//no obstacle
+ 3e2:	8d e0       	ldi	r24, 0x0D	; 13
+ 3e4:	91 e0       	ldi	r25, 0x01	; 1
+ 3e6:	0e 94 6d 00 	call	0xda	; 0xda <STRING_SEND>
+ 3ea:	08 95       	ret
+
+000003ec <motion>:
+	TCCR1A  |=(1 << WGM12) | (1 << WGM10)| (1 << COM1A1) |  (1 << COM1B1);//set timer1,enable fast PWM
+    TCCR1B |= (1 << CS10);//No prescaling
+  
+}
+
+void motion(void){// initialization of pre define path
+ 3ec:	cf 93       	push	r28
+ 3ee:	df 93       	push	r29
+	
+	timer();
+ 3f0:	0e 94 eb 00 	call	0x1d6	; 0x1d6 <timer>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 3f4:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 3f6:	8e e6       	ldi	r24, 0x6E	; 110
+ 3f8:	90 e0       	ldi	r25, 0x00	; 0
+ 3fa:	90 93 89 00 	sts	0x0089, r25
+ 3fe:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 402:	8f e7       	ldi	r24, 0x7F	; 127
+ 404:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 406:	10 92 8b 00 	sts	0x008B, r1
+ 40a:	10 92 8a 00 	sts	0x008A, r1
+ 40e:	c0 e0       	ldi	r28, 0x00	; 0
+ 410:	d0 e0       	ldi	r29, 0x00	; 0
+void motion(void){// initialization of pre define path
+	
+	timer();
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<4;i++){
+		c_detection();
+ 412:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 416:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+
+void motion(void){// initialization of pre define path
+	
+	timer();
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<4;i++){
+ 41a:	21 96       	adiw	r28, 0x01	; 1
+ 41c:	c4 30       	cpi	r28, 0x04	; 4
+ 41e:	d1 05       	cpc	r29, r1
+ 420:	c1 f7       	brne	.-16     	; 0x412 <motion+0x26>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 422:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 424:	10 92 89 00 	sts	0x0089, r1
+ 428:	10 92 88 00 	sts	0x0088, r1
+	OCR0B=c;
+ 42c:	8a ef       	ldi	r24, 0xFA	; 250
+ 42e:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 430:	10 92 8b 00 	sts	0x008B, r1
+ 434:	10 92 8a 00 	sts	0x008A, r1
+ 438:	84 e0       	ldi	r24, 0x04	; 4
+ 43a:	99 e2       	ldi	r25, 0x29	; 41
+ 43c:	20 e9       	ldi	r18, 0x90	; 144
+ 43e:	31 e0       	ldi	r19, 0x01	; 1
+ 440:	f9 01       	movw	r30, r18
+ 442:	31 97       	sbiw	r30, 0x01	; 1
+ 444:	f1 f7       	brne	.-4      	; 0x442 <motion+0x56>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 446:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 448:	d9 f7       	brne	.-10     	; 0x440 <motion+0x54>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 44a:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 44c:	10 92 89 00 	sts	0x0089, r1
+ 450:	10 92 88 00 	sts	0x0088, r1
+	OCR0B=c;
+ 454:	18 bc       	out	0x28, r1	; 40
+	OCR1B=d;
+ 456:	10 92 8b 00 	sts	0x008B, r1
+ 45a:	10 92 8a 00 	sts	0x008A, r1
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 45e:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 460:	8e e6       	ldi	r24, 0x6E	; 110
+ 462:	90 e0       	ldi	r25, 0x00	; 0
+ 464:	90 93 89 00 	sts	0x0089, r25
+ 468:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 46c:	8f e7       	ldi	r24, 0x7F	; 127
+ 46e:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 470:	10 92 8b 00 	sts	0x008B, r1
+ 474:	10 92 8a 00 	sts	0x008A, r1
+	mval(0,0,250,0);    //right turn
+	_delay_ms(1050);
+	mval(0,0,0,0);
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<3;i++){
+		c_detection();
+ 478:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 47c:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+	mval(0,0,250,0);    //right turn
+	_delay_ms(1050);
+	mval(0,0,0,0);
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<3;i++){
+		c_detection();
+ 480:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 484:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+	mval(0,0,250,0);    //right turn
+	_delay_ms(1050);
+	mval(0,0,0,0);
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<3;i++){
+		c_detection();
+ 488:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 48c:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 490:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 492:	8a ef       	ldi	r24, 0xFA	; 250
+ 494:	90 e0       	ldi	r25, 0x00	; 0
+ 496:	90 93 89 00 	sts	0x0089, r25
+ 49a:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 49e:	18 bc       	out	0x28, r1	; 40
+	OCR1B=d;
+ 4a0:	10 92 8b 00 	sts	0x008B, r1
+ 4a4:	10 92 8a 00 	sts	0x008A, r1
+ 4a8:	8c e1       	ldi	r24, 0x1C	; 28
+ 4aa:	95 e2       	ldi	r25, 0x25	; 37
+ 4ac:	20 e9       	ldi	r18, 0x90	; 144
+ 4ae:	31 e0       	ldi	r19, 0x01	; 1
+ 4b0:	f9 01       	movw	r30, r18
+ 4b2:	31 97       	sbiw	r30, 0x01	; 1
+ 4b4:	f1 f7       	brne	.-4      	; 0x4b2 <motion+0xc6>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 4b6:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 4b8:	d9 f7       	brne	.-10     	; 0x4b0 <motion+0xc4>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 4ba:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 4bc:	8e e6       	ldi	r24, 0x6E	; 110
+ 4be:	90 e0       	ldi	r25, 0x00	; 0
+ 4c0:	90 93 89 00 	sts	0x0089, r25
+ 4c4:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 4c8:	8f e7       	ldi	r24, 0x7F	; 127
+ 4ca:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 4cc:	10 92 8b 00 	sts	0x008B, r1
+ 4d0:	10 92 8a 00 	sts	0x008A, r1
+	mval(0,250,0,0);  //right turn
+	_delay_ms(950);
+	
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<3;i++){
+		c_detection();
+ 4d4:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 4d8:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+	mval(0,250,0,0);  //right turn
+	_delay_ms(950);
+	
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<3;i++){
+		c_detection();
+ 4dc:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 4e0:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+	mval(0,250,0,0);  //right turn
+	_delay_ms(950);
+	
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<3;i++){
+		c_detection();
+ 4e4:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 4e8:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 4ec:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 4ee:	8a ef       	ldi	r24, 0xFA	; 250
+ 4f0:	90 e0       	ldi	r25, 0x00	; 0
+ 4f2:	90 93 89 00 	sts	0x0089, r25
+ 4f6:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 4fa:	18 bc       	out	0x28, r1	; 40
+	OCR1B=d;
+ 4fc:	10 92 8b 00 	sts	0x008B, r1
+ 500:	10 92 8a 00 	sts	0x008A, r1
+ 504:	88 e2       	ldi	r24, 0x28	; 40
+ 506:	93 e2       	ldi	r25, 0x23	; 35
+ 508:	20 e9       	ldi	r18, 0x90	; 144
+ 50a:	31 e0       	ldi	r19, 0x01	; 1
+ 50c:	f9 01       	movw	r30, r18
+ 50e:	31 97       	sbiw	r30, 0x01	; 1
+ 510:	f1 f7       	brne	.-4      	; 0x50e <motion+0x122>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 512:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 514:	d9 f7       	brne	.-10     	; 0x50c <motion+0x120>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 516:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 518:	8e e6       	ldi	r24, 0x6E	; 110
+ 51a:	90 e0       	ldi	r25, 0x00	; 0
+ 51c:	90 93 89 00 	sts	0x0089, r25
+ 520:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 524:	8f e7       	ldi	r24, 0x7F	; 127
+ 526:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 528:	10 92 8b 00 	sts	0x008B, r1
+ 52c:	10 92 8a 00 	sts	0x008A, r1
+ 530:	c0 e0       	ldi	r28, 0x00	; 0
+ 532:	d0 e0       	ldi	r29, 0x00	; 0
+	mval(0,250,0,0);  //right turn
+	_delay_ms(900);
+	
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<11;i++){
+		c_detection();
+ 534:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 538:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+	
+	mval(0,250,0,0);  //right turn
+	_delay_ms(900);
+	
+	mval(0,110,127,0);  //forward
+	for(int i=0;i<11;i++){
+ 53c:	21 96       	adiw	r28, 0x01	; 1
+ 53e:	cb 30       	cpi	r28, 0x0B	; 11
+ 540:	d1 05       	cpc	r29, r1
+ 542:	c1 f7       	brne	.-16     	; 0x534 <motion+0x148>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 544:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 546:	8a ef       	ldi	r24, 0xFA	; 250
+ 548:	90 e0       	ldi	r25, 0x00	; 0
+ 54a:	90 93 89 00 	sts	0x0089, r25
+ 54e:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 552:	18 bc       	out	0x28, r1	; 40
+	OCR1B=d;
+ 554:	10 92 8b 00 	sts	0x008B, r1
+ 558:	10 92 8a 00 	sts	0x008A, r1
+ 55c:	84 e3       	ldi	r24, 0x34	; 52
+ 55e:	91 e2       	ldi	r25, 0x21	; 33
+ 560:	20 e9       	ldi	r18, 0x90	; 144
+ 562:	31 e0       	ldi	r19, 0x01	; 1
+ 564:	f9 01       	movw	r30, r18
+ 566:	31 97       	sbiw	r30, 0x01	; 1
+ 568:	f1 f7       	brne	.-4      	; 0x566 <motion+0x17a>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 56a:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 56c:	d9 f7       	brne	.-10     	; 0x564 <motion+0x178>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 56e:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 570:	8e e6       	ldi	r24, 0x6E	; 110
+ 572:	90 e0       	ldi	r25, 0x00	; 0
+ 574:	90 93 89 00 	sts	0x0089, r25
+ 578:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 57c:	8f e7       	ldi	r24, 0x7F	; 127
+ 57e:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 580:	10 92 8b 00 	sts	0x008B, r1
+ 584:	10 92 8a 00 	sts	0x008A, r1
+ 588:	c0 e0       	ldi	r28, 0x00	; 0
+ 58a:	d0 e0       	ldi	r29, 0x00	; 0
+	mval(0,250,0,0);  //right turn
+	_delay_ms(850);
+	
+	mval(0,110,127,0); //forward
+	for(int i=0;i<4;i++){
+		c_detection();
+ 58c:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 590:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+	
+	mval(0,250,0,0);  //right turn
+	_delay_ms(850);
+	
+	mval(0,110,127,0); //forward
+	for(int i=0;i<4;i++){
+ 594:	21 96       	adiw	r28, 0x01	; 1
+ 596:	c4 30       	cpi	r28, 0x04	; 4
+ 598:	d1 05       	cpc	r29, r1
+ 59a:	c1 f7       	brne	.-16     	; 0x58c <motion+0x1a0>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 59c:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 59e:	8a ef       	ldi	r24, 0xFA	; 250
+ 5a0:	90 e0       	ldi	r25, 0x00	; 0
+ 5a2:	90 93 89 00 	sts	0x0089, r25
+ 5a6:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 5aa:	18 bc       	out	0x28, r1	; 40
+	OCR1B=d;
+ 5ac:	10 92 8b 00 	sts	0x008B, r1
+ 5b0:	10 92 8a 00 	sts	0x008A, r1
+ 5b4:	88 e2       	ldi	r24, 0x28	; 40
+ 5b6:	93 e2       	ldi	r25, 0x23	; 35
+ 5b8:	20 e9       	ldi	r18, 0x90	; 144
+ 5ba:	31 e0       	ldi	r19, 0x01	; 1
+ 5bc:	f9 01       	movw	r30, r18
+ 5be:	31 97       	sbiw	r30, 0x01	; 1
+ 5c0:	f1 f7       	brne	.-4      	; 0x5be <motion+0x1d2>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 5c2:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 5c4:	d9 f7       	brne	.-10     	; 0x5bc <motion+0x1d0>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 5c6:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 5c8:	8e e6       	ldi	r24, 0x6E	; 110
+ 5ca:	90 e0       	ldi	r25, 0x00	; 0
+ 5cc:	90 93 89 00 	sts	0x0089, r25
+ 5d0:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 5d4:	8f e7       	ldi	r24, 0x7F	; 127
+ 5d6:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 5d8:	10 92 8b 00 	sts	0x008B, r1
+ 5dc:	10 92 8a 00 	sts	0x008A, r1
+	mval(0,250,0,0);  //right turn
+	_delay_ms(900);
+	
+	mval(0,110,127,0); //forward
+	for(int i=0;i<2;i++){
+		c_detection();
+ 5e0:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 5e4:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+	mval(0,250,0,0);  //right turn
+	_delay_ms(900);
+	
+	mval(0,110,127,0); //forward
+	for(int i=0;i<2;i++){
+		c_detection();
+ 5e8:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 5ec:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 5f0:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 5f2:	10 92 89 00 	sts	0x0089, r1
+ 5f6:	10 92 88 00 	sts	0x0088, r1
+	OCR0B=c;
+ 5fa:	8a ef       	ldi	r24, 0xFA	; 250
+ 5fc:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 5fe:	10 92 8b 00 	sts	0x008B, r1
+ 602:	10 92 8a 00 	sts	0x008A, r1
+ 606:	8c e1       	ldi	r24, 0x1C	; 28
+ 608:	95 e2       	ldi	r25, 0x25	; 37
+ 60a:	20 e9       	ldi	r18, 0x90	; 144
+ 60c:	31 e0       	ldi	r19, 0x01	; 1
+ 60e:	f9 01       	movw	r30, r18
+ 610:	31 97       	sbiw	r30, 0x01	; 1
+ 612:	f1 f7       	brne	.-4      	; 0x610 <motion+0x224>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 614:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 616:	d9 f7       	brne	.-10     	; 0x60e <motion+0x222>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 618:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 61a:	8e e6       	ldi	r24, 0x6E	; 110
+ 61c:	90 e0       	ldi	r25, 0x00	; 0
+ 61e:	90 93 89 00 	sts	0x0089, r25
+ 622:	80 93 88 00 	sts	0x0088, r24
+	OCR0B=c;
+ 626:	8f e7       	ldi	r24, 0x7F	; 127
+ 628:	88 bd       	out	0x28, r24	; 40
+	OCR1B=d;
+ 62a:	10 92 8b 00 	sts	0x008B, r1
+ 62e:	10 92 8a 00 	sts	0x008A, r1
+	mval(0,0,250,0);  //right turn
+	_delay_ms(950);
+	
+	mval(0,110,127,0); //forward
+	for(int i=0;i<2;i++){
+		c_detection();
+ 632:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 636:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+	mval(0,0,250,0);  //right turn
+	_delay_ms(950);
+	
+	mval(0,110,127,0); //forward
+	for(int i=0;i<2;i++){
+		c_detection();
+ 63a:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <c_detection>
+		o_detection();
+ 63e:	0e 94 c7 01 	call	0x38e	; 0x38e <o_detection>
+
+	sei();
+}
+
+void mval(unsigned char a, unsigned char b, unsigned char c, unsigned char d){
+	OCR0A=a;//initialized registers using variables, control the width of PWM pins
+ 642:	17 bc       	out	0x27, r1	; 39
+	OCR1A=b;
+ 644:	10 92 89 00 	sts	0x0089, r1
+ 648:	10 92 88 00 	sts	0x0088, r1
+	OCR0B=c;
+ 64c:	18 bc       	out	0x28, r1	; 40
+	OCR1B=d;
+ 64e:	10 92 8b 00 	sts	0x008B, r1
+ 652:	10 92 8a 00 	sts	0x008A, r1
+	}
+	
+	
+	mval(0,0,0,0);
+	
+}
+ 656:	df 91       	pop	r29
+ 658:	cf 91       	pop	r28
+ 65a:	08 95       	ret
+
+0000065c <main>:
+	
+	STRING_SEND("\n");
+}
+
+int main(void){
+	init();
+ 65c:	0e 94 b3 00 	call	0x166	; 0x166 <init>
+	
+	while(1){
+		motion();
+ 660:	0e 94 f6 01 	call	0x3ec	; 0x3ec <motion>
+ 664:	fd cf       	rjmp	.-6      	; 0x660 <main+0x4>
+
+00000666 <__divmodhi4>:
+ 666:	97 fb       	bst	r25, 7
+ 668:	09 2e       	mov	r0, r25
+ 66a:	07 26       	eor	r0, r23
+ 66c:	0a d0       	rcall	.+20     	; 0x682 <__divmodhi4_neg1>
+ 66e:	77 fd       	sbrc	r23, 7
+ 670:	04 d0       	rcall	.+8      	; 0x67a <__divmodhi4_neg2>
+ 672:	0c d0       	rcall	.+24     	; 0x68c <__udivmodhi4>
+ 674:	06 d0       	rcall	.+12     	; 0x682 <__divmodhi4_neg1>
+ 676:	00 20       	and	r0, r0
+ 678:	1a f4       	brpl	.+6      	; 0x680 <__divmodhi4_exit>
+
+0000067a <__divmodhi4_neg2>:
+ 67a:	70 95       	com	r23
+ 67c:	61 95       	neg	r22
+ 67e:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000680 <__divmodhi4_exit>:
+ 680:	08 95       	ret
+
+00000682 <__divmodhi4_neg1>:
+ 682:	f6 f7       	brtc	.-4      	; 0x680 <__divmodhi4_exit>
+ 684:	90 95       	com	r25
+ 686:	81 95       	neg	r24
+ 688:	9f 4f       	sbci	r25, 0xFF	; 255
+ 68a:	08 95       	ret
+
+0000068c <__udivmodhi4>:
+ 68c:	aa 1b       	sub	r26, r26
+ 68e:	bb 1b       	sub	r27, r27
+ 690:	51 e1       	ldi	r21, 0x11	; 17
+ 692:	07 c0       	rjmp	.+14     	; 0x6a2 <__udivmodhi4_ep>
+
+00000694 <__udivmodhi4_loop>:
+ 694:	aa 1f       	adc	r26, r26
+ 696:	bb 1f       	adc	r27, r27
+ 698:	a6 17       	cp	r26, r22
+ 69a:	b7 07       	cpc	r27, r23
+ 69c:	10 f0       	brcs	.+4      	; 0x6a2 <__udivmodhi4_ep>
+ 69e:	a6 1b       	sub	r26, r22
+ 6a0:	b7 0b       	sbc	r27, r23
+
+000006a2 <__udivmodhi4_ep>:
+ 6a2:	88 1f       	adc	r24, r24
+ 6a4:	99 1f       	adc	r25, r25
+ 6a6:	5a 95       	dec	r21
+ 6a8:	a9 f7       	brne	.-22     	; 0x694 <__udivmodhi4_loop>
+ 6aa:	80 95       	com	r24
+ 6ac:	90 95       	com	r25
+ 6ae:	bc 01       	movw	r22, r24
+ 6b0:	cd 01       	movw	r24, r26
+ 6b2:	08 95       	ret
+
+000006b4 <itoa>:
+ 6b4:	fb 01       	movw	r30, r22
+ 6b6:	9f 01       	movw	r18, r30
+ 6b8:	e8 94       	clt
+ 6ba:	42 30       	cpi	r20, 0x02	; 2
+ 6bc:	c4 f0       	brlt	.+48     	; 0x6ee <itoa+0x3a>
+ 6be:	45 32       	cpi	r20, 0x25	; 37
+ 6c0:	b4 f4       	brge	.+44     	; 0x6ee <itoa+0x3a>
+ 6c2:	4a 30       	cpi	r20, 0x0A	; 10
+ 6c4:	29 f4       	brne	.+10     	; 0x6d0 <itoa+0x1c>
+ 6c6:	97 fb       	bst	r25, 7
+ 6c8:	1e f4       	brtc	.+6      	; 0x6d0 <itoa+0x1c>
+ 6ca:	90 95       	com	r25
+ 6cc:	81 95       	neg	r24
+ 6ce:	9f 4f       	sbci	r25, 0xFF	; 255
+ 6d0:	64 2f       	mov	r22, r20
+ 6d2:	77 27       	eor	r23, r23
+ 6d4:	0e 94 46 03 	call	0x68c	; 0x68c <__udivmodhi4>
+ 6d8:	80 5d       	subi	r24, 0xD0	; 208
+ 6da:	8a 33       	cpi	r24, 0x3A	; 58
+ 6dc:	0c f0       	brlt	.+2      	; 0x6e0 <itoa+0x2c>
+ 6de:	89 5d       	subi	r24, 0xD9	; 217
+ 6e0:	81 93       	st	Z+, r24
+ 6e2:	cb 01       	movw	r24, r22
+ 6e4:	00 97       	sbiw	r24, 0x00	; 0
+ 6e6:	a1 f7       	brne	.-24     	; 0x6d0 <itoa+0x1c>
+ 6e8:	16 f4       	brtc	.+4      	; 0x6ee <itoa+0x3a>
+ 6ea:	5d e2       	ldi	r21, 0x2D	; 45
+ 6ec:	51 93       	st	Z+, r21
+ 6ee:	10 82       	st	Z, r1
+ 6f0:	c9 01       	movw	r24, r18
+ 6f2:	0c 94 7b 03 	jmp	0x6f6	; 0x6f6 <strrev>
+
+000006f6 <strrev>:
+ 6f6:	dc 01       	movw	r26, r24
+ 6f8:	fc 01       	movw	r30, r24
+ 6fa:	67 2f       	mov	r22, r23
+ 6fc:	71 91       	ld	r23, Z+
+ 6fe:	77 23       	and	r23, r23
+ 700:	e1 f7       	brne	.-8      	; 0x6fa <strrev+0x4>
+ 702:	32 97       	sbiw	r30, 0x02	; 2
+ 704:	04 c0       	rjmp	.+8      	; 0x70e <strrev+0x18>
+ 706:	7c 91       	ld	r23, X
+ 708:	6d 93       	st	X+, r22
+ 70a:	70 83       	st	Z, r23
+ 70c:	62 91       	ld	r22, -Z
+ 70e:	ae 17       	cp	r26, r30
+ 710:	bf 07       	cpc	r27, r31
+ 712:	c8 f3       	brcs	.-14     	; 0x706 <strrev+0x10>
+ 714:	08 95       	ret
+
+00000716 <_exit>:
+ 716:	f8 94       	cli
+
+00000718 <__stop_program>:
+ 718:	ff cf       	rjmp	.-2      	; 0x718 <__stop_program>
